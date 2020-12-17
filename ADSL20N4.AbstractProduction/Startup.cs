@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ADSL20N4.AbstractProduction.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +21,9 @@ namespace ADSL20N4.AbstractProduction
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<EntertainmentDbContext>(x => 
+                x.UseSqlite("DataSource=EntertainmentDb;mode=memory;cache=shared"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
