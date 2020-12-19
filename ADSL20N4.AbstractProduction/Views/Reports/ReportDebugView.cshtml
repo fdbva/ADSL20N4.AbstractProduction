@@ -1,0 +1,26 @@
+﻿@model ADSL20N4.AbstractProduction.Models.ReportDebugViewModel
+
+@{
+    ViewData["Title"] = "ReportDebugView";
+}
+
+<h1>ReportDebugView</h1>
+
+<div>
+    <h4>@Model.Question</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Json)
+        </dt>
+        <dd class = "col-sm-10">
+            <pre>@Model.Json</pre>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sql)
+        </dt>
+        <dd class="col-sm-10">
+            <pre>@Model.Sql</pre>
+        </dd>
+    </dl>
+</div>

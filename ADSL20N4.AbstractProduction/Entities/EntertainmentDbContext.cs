@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using ADSL20N4.AbstractProduction.Models;
 
 namespace ADSL20N4.AbstractProduction.Entities
 {
@@ -11,9 +12,6 @@ namespace ADSL20N4.AbstractProduction.Entities
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=entertainment.db");
-
         public DbSet<ProductionEntity> Productions { get; set; }
         public DbSet<MovieEntity> Movies { get; set; }
         public DbSet<SeriesEntity> Series { get; set; }
@@ -23,6 +21,9 @@ namespace ADSL20N4.AbstractProduction.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<MovieEntity>().ToTable("Movies");
+            modelBuilder.Entity<SeriesEntity>().ToTable("Series");
+
             var movies = new[] {
                 new MovieEntity { Id = 1, Name = "Avengers: Endgame", WorldwideBoxOfficeGross = 2_797_800_564, DurationInMinutes = 181, Release = new DateTime(2019, 4, 26) },
                 new MovieEntity { Id = 2, Name = "The Lion King", WorldwideBoxOfficeGross = 1_654_791_102, DurationInMinutes     = 118, Release = new DateTime(2019, 7, 19) },
@@ -119,9 +120,9 @@ namespace ADSL20N4.AbstractProduction.Entities
 
             modelBuilder.Entity<RatingEntity>().HasData(ratings);
 
-            modelBuilder.Model.
-
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<ADSL20N4.AbstractProduction.Models.ReportDebugViewModel> ReportDebugViewModel { get; set; }
     }
 }

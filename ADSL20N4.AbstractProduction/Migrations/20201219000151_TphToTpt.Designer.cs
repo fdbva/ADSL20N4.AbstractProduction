@@ -4,14 +4,16 @@ using ADSL20N4.AbstractProduction.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ADSL20N4.AbstractProduction.Migrations
 {
     [DbContext(typeof(EntertainmentDbContext))]
-    partial class EntertainmentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201219000151_TphToTpt")]
+    partial class TphToTpt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

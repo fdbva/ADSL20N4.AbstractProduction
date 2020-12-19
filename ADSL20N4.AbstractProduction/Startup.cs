@@ -23,7 +23,9 @@ namespace ADSL20N4.AbstractProduction
             services.AddControllersWithViews();
 
             services.AddDbContext<EntertainmentDbContext>(x => 
-                x.UseSqlite("DataSource=EntertainmentDb;mode=memory;cache=shared"));
+                //x.UseSqlite("DataSource=EntertainmentDb;mode=memory;cache=shared")
+                x.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Entertainment;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

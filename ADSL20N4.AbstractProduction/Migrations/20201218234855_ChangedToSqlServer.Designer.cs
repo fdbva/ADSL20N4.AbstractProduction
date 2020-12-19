@@ -3,29 +3,33 @@ using System;
 using ADSL20N4.AbstractProduction.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ADSL20N4.AbstractProduction.Migrations
 {
     [DbContext(typeof(EntertainmentDbContext))]
-    [Migration("20201217004851_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201218234855_ChangedToSqlServer")]
+    partial class ChangedToSqlServer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .UseIdentityColumns()
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("ADSL20N4.AbstractProduction.Entities.ActorEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -128,16 +132,17 @@ namespace ADSL20N4.AbstractProduction.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<int>("ActorId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductionId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -308,17 +313,18 @@ namespace ADSL20N4.AbstractProduction.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Release")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -331,16 +337,17 @@ namespace ADSL20N4.AbstractProduction.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<int>("ProductionId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Source")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Stars")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -353,42 +360,42 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 1,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ProductionId = 1,
                             Source = "Internet",
                             Stars = 1
                         },
                         new
                         {
+                            Id = 2,
+                            ProductionId = 1,
+                            Source = "App",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ProductionId = 1,
+                            Source = "App",
+                            Stars = 5
+                        },
+                        new
+                        {
                             Id = 4,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 5,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 6,
                             ProductionId = 1,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
@@ -396,13 +403,13 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 7,
                             ProductionId = 1,
                             Source = "Newspaper",
-                            Stars = 4
+                            Stars = 2
                         },
                         new
                         {
                             Id = 8,
                             ProductionId = 1,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
@@ -410,27 +417,27 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 9,
                             ProductionId = 1,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 1
                         },
                         new
                         {
                             Id = 10,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 11,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 12,
                             ProductionId = 1,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 3
                         },
                         new
@@ -438,70 +445,70 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 13,
                             ProductionId = 1,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 1
                         },
                         new
                         {
                             Id = 14,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 15,
                             ProductionId = 1,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
                             Id = 16,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 17,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 18,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 19,
                             ProductionId = 1,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 3
                         },
                         new
                         {
                             Id = 20,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 21,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 22,
                             ProductionId = 1,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
@@ -514,7 +521,7 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 24,
                             ProductionId = 1,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 2
                         },
                         new
@@ -528,8 +535,8 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 26,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
@@ -542,99 +549,99 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 28,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 29,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 30,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 31,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 32,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 33,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 34,
                             ProductionId = 1,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 2
                         },
                         new
                         {
                             Id = 35,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 36,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 37,
                             ProductionId = 1,
                             Source = "App",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 38,
                             ProductionId = 1,
                             Source = "Internet",
-                            Stars = 2
+                            Stars = 3
                         },
                         new
                         {
                             Id = 39,
                             ProductionId = 1,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 4
                         },
                         new
                         {
                             Id = 40,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 41,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
@@ -648,70 +655,70 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 43,
                             ProductionId = 1,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 1
                         },
                         new
                         {
                             Id = 44,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 45,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 46,
                             ProductionId = 1,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 3
                         },
                         new
                         {
                             Id = 47,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 48,
                             ProductionId = 1,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 49,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 50,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 51,
                             ProductionId = 1,
                             Source = "Newspaper",
-                            Stars = 4
+                            Stars = 3
                         },
                         new
                         {
                             Id = 52,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
@@ -738,84 +745,84 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 56,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 57,
                             ProductionId = 1,
                             Source = "Newspaper",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 58,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 59,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 60,
                             ProductionId = 1,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 4
                         },
                         new
                         {
                             Id = 61,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 62,
-                            ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 63,
-                            ProductionId = 1,
-                            Source = "App",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 64,
-                            ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 65,
-                            ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 66,
                             ProductionId = 1,
                             Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
-                            Id = 67,
+                            Id = 63,
                             ProductionId = 1,
                             Source = "App",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 64,
+                            ProductionId = 1,
+                            Source = "App",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 65,
+                            ProductionId = 1,
+                            Source = "Newspaper",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 66,
+                            ProductionId = 1,
+                            Source = "Magazine",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 67,
+                            ProductionId = 1,
+                            Source = "Internet",
                             Stars = 1
                         },
                         new
@@ -823,49 +830,49 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 68,
                             ProductionId = 1,
                             Source = "App",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 69,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 70,
                             ProductionId = 1,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 5
                         },
                         new
                         {
                             Id = 71,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 72,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 73,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 74,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
@@ -878,42 +885,42 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 76,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 77,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 78,
                             ProductionId = 1,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
                             Id = 79,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 80,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 81,
                             ProductionId = 1,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
@@ -921,48 +928,48 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 82,
                             ProductionId = 1,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 83,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 84,
                             ProductionId = 1,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 85,
                             ProductionId = 1,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 86,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 87,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 88,
                             ProductionId = 1,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 2
                         },
                         new
@@ -970,139 +977,139 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 89,
                             ProductionId = 1,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 90,
                             ProductionId = 1,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 4
                         },
                         new
                         {
                             Id = 91,
                             ProductionId = 1,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 92,
                             ProductionId = 1,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
                             Id = 93,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 94,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 95,
                             ProductionId = 1,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 96,
                             ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 97,
                             ProductionId = 1,
                             Source = "App",
-                            Stars = 4
+                            Stars = 2
                         },
                         new
                         {
                             Id = 98,
+                            ProductionId = 1,
+                            Source = "Internet",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 99,
                             ProductionId = 1,
                             Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
-                            Id = 99,
-                            ProductionId = 1,
-                            Source = "Internet",
-                            Stars = 1
-                        },
-                        new
-                        {
                             Id = 101,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 102,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 103,
                             ProductionId = 2,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 5
                         },
                         new
                         {
                             Id = 104,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 105,
                             ProductionId = 2,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 5
                         },
                         new
                         {
                             Id = 106,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 107,
+                            ProductionId = 2,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 108,
                             ProductionId = 2,
                             Source = "App",
                             Stars = 4
                         },
                         new
                         {
-                            Id = 108,
-                            ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
                             Id = 109,
                             ProductionId = 2,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
@@ -1110,105 +1117,105 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 110,
                             ProductionId = 2,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
                             Id = 111,
                             ProductionId = 2,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
                             Id = 112,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 113,
                             ProductionId = 2,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
                             Id = 114,
                             ProductionId = 2,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
                             Id = 115,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 116,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 117,
-                            ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 118,
-                            ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 119,
-                            ProductionId = 2,
-                            Source = "App",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 120,
                             ProductionId = 2,
                             Source = "Internet",
                             Stars = 5
                         },
                         new
                         {
+                            Id = 118,
+                            ProductionId = 2,
+                            Source = "App",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 119,
+                            ProductionId = 2,
+                            Source = "Magazine",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 120,
+                            ProductionId = 2,
+                            Source = "Magazine",
+                            Stars = 4
+                        },
+                        new
+                        {
                             Id = 121,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 122,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 123,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 124,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
@@ -1221,14 +1228,14 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 126,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 127,
                             ProductionId = 2,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 3
                         },
                         new
@@ -1236,251 +1243,251 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 128,
                             ProductionId = 2,
                             Source = "Newspaper",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 129,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 130,
-                            ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 131,
-                            ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 132,
-                            ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 133,
                             ProductionId = 2,
                             Source = "App",
                             Stars = 2
                         },
                         new
                         {
+                            Id = 131,
+                            ProductionId = 2,
+                            Source = "App",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 132,
+                            ProductionId = 2,
+                            Source = "App",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 133,
+                            ProductionId = 2,
+                            Source = "Newspaper",
+                            Stars = 4
+                        },
+                        new
+                        {
                             Id = 134,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 135,
                             ProductionId = 2,
                             Source = "App",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 136,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 137,
                             ProductionId = 2,
                             Source = "App",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
                             Id = 138,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 139,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 140,
                             ProductionId = 2,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 4
                         },
                         new
                         {
                             Id = 141,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 142,
                             ProductionId = 2,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 143,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 144,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 145,
                             ProductionId = 2,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
                             Id = 146,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 147,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 148,
                             ProductionId = 2,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 149,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 150,
                             ProductionId = 2,
                             Source = "App",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 151,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 152,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 153,
                             ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 154,
                             ProductionId = 2,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 1
                         },
                         new
                         {
                             Id = 155,
                             ProductionId = 2,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 156,
                             ProductionId = 2,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 157,
                             ProductionId = 2,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 158,
                             ProductionId = 2,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 159,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 160,
                             ProductionId = 2,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
                         {
                             Id = 161,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 162,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 163,
                             ProductionId = 2,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 5
                         },
                         new
@@ -1488,48 +1495,48 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 164,
                             ProductionId = 2,
                             Source = "App",
-                            Stars = 2
+                            Stars = 4
                         },
                         new
                         {
                             Id = 165,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 166,
                             ProductionId = 2,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 5
                         },
                         new
                         {
                             Id = 167,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 168,
                             ProductionId = 2,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 1
                         },
                         new
                         {
                             Id = 169,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 170,
                             ProductionId = 2,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
@@ -1543,36 +1550,36 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 172,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 173,
                             ProductionId = 2,
                             Source = "Magazine",
-                            Stars = 5
+                            Stars = 2
                         },
                         new
                         {
                             Id = 174,
                             ProductionId = 2,
                             Source = "Magazine",
-                            Stars = 5
+                            Stars = 2
                         },
                         new
                         {
                             Id = 175,
                             ProductionId = 2,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 176,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
@@ -1585,28 +1592,28 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 178,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 179,
                             ProductionId = 2,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 180,
                             ProductionId = 2,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 1
                         },
                         new
                         {
                             Id = 181,
                             ProductionId = 2,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 3
                         },
                         new
@@ -1614,174 +1621,174 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 182,
                             ProductionId = 2,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 183,
                             ProductionId = 2,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 4
                         },
                         new
                         {
                             Id = 184,
                             ProductionId = 2,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 185,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 186,
                             ProductionId = 2,
                             Source = "App",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 187,
                             ProductionId = 2,
                             Source = "Magazine",
-                            Stars = 4
+                            Stars = 2
                         },
                         new
                         {
                             Id = 188,
                             ProductionId = 2,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 189,
                             ProductionId = 2,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 1
                         },
                         new
                         {
                             Id = 190,
                             ProductionId = 2,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 191,
                             ProductionId = 2,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 5
                         },
                         new
                         {
                             Id = 192,
                             ProductionId = 2,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 193,
+                            ProductionId = 2,
+                            Source = "Internet",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 194,
                             ProductionId = 2,
                             Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
-                            Id = 194,
+                            Id = 195,
                             ProductionId = 2,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
-                            Id = 195,
+                            Id = 196,
+                            ProductionId = 2,
+                            Source = "App",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 197,
                             ProductionId = 2,
                             Source = "Newspaper",
                             Stars = 2
                         },
                         new
                         {
-                            Id = 196,
-                            ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 197,
-                            ProductionId = 2,
-                            Source = "Magazine",
-                            Stars = 1
-                        },
-                        new
-                        {
                             Id = 198,
                             ProductionId = 2,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 199,
                             ProductionId = 2,
                             Source = "Magazine",
-                            Stars = 4
+                            Stars = 2
                         },
                         new
                         {
                             Id = 201,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 202,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 203,
                             ProductionId = 3,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 204,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 205,
                             ProductionId = 3,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
                             Id = 206,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 207,
                             ProductionId = 3,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 5
                         },
                         new
@@ -1789,42 +1796,42 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 208,
                             ProductionId = 3,
                             Source = "App",
-                            Stars = 2
+                            Stars = 4
                         },
                         new
                         {
                             Id = 209,
                             ProductionId = 3,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 210,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 211,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 212,
                             ProductionId = 3,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 213,
                             ProductionId = 3,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
@@ -1837,169 +1844,169 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 215,
                             ProductionId = 3,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 216,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 217,
                             ProductionId = 3,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 218,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 219,
                             ProductionId = 3,
                             Source = "App",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 220,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 221,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 222,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 223,
                             ProductionId = 3,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
                         {
                             Id = 224,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 225,
-                            ProductionId = 3,
                             Source = "Internet",
                             Stars = 2
                         },
                         new
                         {
-                            Id = 226,
+                            Id = 225,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 227,
-                            ProductionId = 3,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 228,
+                            Id = 226,
                             ProductionId = 3,
                             Source = "Magazine",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
-                            Id = 229,
-                            ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 230,
-                            ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 231,
-                            ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 232,
-                            ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 233,
-                            ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 234,
+                            Id = 227,
                             ProductionId = 3,
                             Source = "App",
                             Stars = 5
                         },
                         new
                         {
+                            Id = 228,
+                            ProductionId = 3,
+                            Source = "Newspaper",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 229,
+                            ProductionId = 3,
+                            Source = "Internet",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 230,
+                            ProductionId = 3,
+                            Source = "Magazine",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 231,
+                            ProductionId = 3,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 232,
+                            ProductionId = 3,
+                            Source = "Newspaper",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 233,
+                            ProductionId = 3,
+                            Source = "App",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 234,
+                            ProductionId = 3,
+                            Source = "Newspaper",
+                            Stars = 2
+                        },
+                        new
+                        {
                             Id = 235,
                             ProductionId = 3,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 3
                         },
                         new
                         {
                             Id = 236,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 237,
                             ProductionId = 3,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 2
                         },
                         new
                         {
                             Id = 238,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
@@ -2012,21 +2019,21 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 240,
                             ProductionId = 3,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 241,
                             ProductionId = 3,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 242,
                             ProductionId = 3,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 4
                         },
                         new
@@ -2034,63 +2041,63 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 243,
                             ProductionId = 3,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 244,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 245,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 246,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 247,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 248,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 249,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 250,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 251,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
@@ -2103,42 +2110,42 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 253,
                             ProductionId = 3,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
                             Id = 254,
                             ProductionId = 3,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 255,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 256,
+                            ProductionId = 3,
+                            Source = "App",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 257,
                             ProductionId = 3,
                             Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
-                            Id = 257,
-                            ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 5
-                        },
-                        new
-                        {
                             Id = 258,
                             ProductionId = 3,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 3
                         },
                         new
@@ -2152,56 +2159,56 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 260,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 261,
                             ProductionId = 3,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 5
                         },
                         new
                         {
                             Id = 262,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 263,
                             ProductionId = 3,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 5
                         },
                         new
                         {
                             Id = 264,
                             ProductionId = 3,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 5
                         },
                         new
                         {
                             Id = 265,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 266,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 267,
                             ProductionId = 3,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 5
                         },
                         new
@@ -2216,27 +2223,27 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 269,
                             ProductionId = 3,
                             Source = "App",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 270,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 271,
                             ProductionId = 3,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 2
                         },
                         new
                         {
                             Id = 272,
                             ProductionId = 3,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 2
                         },
                         new
@@ -2244,14 +2251,14 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 273,
                             ProductionId = 3,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 274,
                             ProductionId = 3,
                             Source = "Magazine",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
@@ -2264,99 +2271,99 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 276,
                             ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 277,
-                            ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 278,
-                            ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 279,
-                            ProductionId = 3,
-                            Source = "App",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 280,
-                            ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 281,
-                            ProductionId = 3,
-                            Source = "App",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 282,
-                            ProductionId = 3,
-                            Source = "Internet",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 283,
-                            ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 284,
-                            ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 285,
-                            ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 286,
-                            ProductionId = 3,
                             Source = "App",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 287,
+                            Id = 277,
                             ProductionId = 3,
                             Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
-                            Id = 288,
+                            Id = 278,
+                            ProductionId = 3,
+                            Source = "Magazine",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 279,
+                            ProductionId = 3,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 280,
+                            ProductionId = 3,
+                            Source = "Newspaper",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 281,
+                            ProductionId = 3,
+                            Source = "Newspaper",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 282,
                             ProductionId = 3,
                             Source = "Magazine",
                             Stars = 5
                         },
                         new
                         {
-                            Id = 289,
+                            Id = 283,
                             ProductionId = 3,
                             Source = "App",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 284,
+                            ProductionId = 3,
+                            Source = "Magazine",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 285,
+                            ProductionId = 3,
+                            Source = "Newspaper",
                             Stars = 5
+                        },
+                        new
+                        {
+                            Id = 286,
+                            ProductionId = 3,
+                            Source = "Magazine",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 287,
+                            ProductionId = 3,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 288,
+                            ProductionId = 3,
+                            Source = "Magazine",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 289,
+                            ProductionId = 3,
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
@@ -2370,21 +2377,21 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 291,
                             ProductionId = 3,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 292,
                             ProductionId = 3,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 293,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
@@ -2398,41 +2405,41 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 295,
                             ProductionId = 3,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 3
                         },
                         new
                         {
                             Id = 296,
                             ProductionId = 3,
                             Source = "Magazine",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
                             Id = 297,
                             ProductionId = 3,
                             Source = "App",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 298,
                             ProductionId = 3,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 4
                         },
                         new
                         {
                             Id = 299,
                             ProductionId = 3,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 301,
                             ProductionId = 4,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 1
                         },
                         new
@@ -2440,139 +2447,139 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 302,
                             ProductionId = 4,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 2
                         },
                         new
                         {
                             Id = 303,
                             ProductionId = 4,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 3
                         },
                         new
                         {
                             Id = 304,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 305,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 306,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 307,
                             ProductionId = 4,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
                             Id = 308,
                             ProductionId = 4,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 309,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 310,
                             ProductionId = 4,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 311,
                             ProductionId = 4,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
                             Id = 312,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 313,
                             ProductionId = 4,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 314,
                             ProductionId = 4,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 4
                         },
                         new
                         {
                             Id = 315,
                             ProductionId = 4,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 316,
                             ProductionId = 4,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
                             Id = 317,
                             ProductionId = 4,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
                         {
                             Id = 318,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 319,
                             ProductionId = 4,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 320,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 321,
                             ProductionId = 4,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 2
                         },
                         new
@@ -2580,188 +2587,188 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 322,
                             ProductionId = 4,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 3
                         },
                         new
                         {
                             Id = 323,
                             ProductionId = 4,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 3
                         },
                         new
                         {
                             Id = 324,
                             ProductionId = 4,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
                         {
                             Id = 325,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 326,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 327,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 328,
                             ProductionId = 4,
                             Source = "App",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 329,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 330,
                             ProductionId = 4,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 331,
                             ProductionId = 4,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 332,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 333,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 334,
                             ProductionId = 4,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 335,
-                            ProductionId = 4,
-                            Source = "App",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 336,
-                            ProductionId = 4,
-                            Source = "App",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 337,
-                            ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 338,
-                            ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 339,
-                            ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 340,
-                            ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 341,
-                            ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 342,
                             ProductionId = 4,
                             Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 343,
+                            Id = 336,
                             ProductionId = 4,
                             Source = "App",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 337,
+                            ProductionId = 4,
+                            Source = "Magazine",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 338,
+                            ProductionId = 4,
+                            Source = "Magazine",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 339,
+                            ProductionId = 4,
+                            Source = "Magazine",
                             Stars = 4
+                        },
+                        new
+                        {
+                            Id = 340,
+                            ProductionId = 4,
+                            Source = "Magazine",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 341,
+                            ProductionId = 4,
+                            Source = "Newspaper",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 342,
+                            ProductionId = 4,
+                            Source = "Internet",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 343,
+                            ProductionId = 4,
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 344,
                             ProductionId = 4,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
                             Id = 345,
                             ProductionId = 4,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 346,
                             ProductionId = 4,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 347,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 348,
                             ProductionId = 4,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 5
                         },
                         new
@@ -2775,15 +2782,15 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 350,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 351,
                             ProductionId = 4,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
@@ -2796,35 +2803,35 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 353,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 354,
-                            ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 355,
-                            ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 356,
                             ProductionId = 4,
                             Source = "App",
                             Stars = 4
                         },
                         new
                         {
-                            Id = 357,
+                            Id = 355,
+                            ProductionId = 4,
+                            Source = "Magazine",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 356,
                             ProductionId = 4,
                             Source = "Internet",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 357,
+                            ProductionId = 4,
+                            Source = "Magazine",
                             Stars = 5
                         },
                         new
@@ -2832,27 +2839,27 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 358,
                             ProductionId = 4,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 359,
                             ProductionId = 4,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 4
                         },
                         new
                         {
                             Id = 360,
                             ProductionId = 4,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 4
                         },
                         new
                         {
                             Id = 361,
                             ProductionId = 4,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
@@ -2860,55 +2867,55 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 362,
                             ProductionId = 4,
                             Source = "App",
-                            Stars = 2
+                            Stars = 5
                         },
                         new
                         {
                             Id = 363,
                             ProductionId = 4,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
                             Id = 364,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 365,
-                            ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 366,
-                            ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 367,
-                            ProductionId = 4,
                             Source = "App",
                             Stars = 4
                         },
                         new
                         {
+                            Id = 365,
+                            ProductionId = 4,
+                            Source = "Internet",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 366,
+                            ProductionId = 4,
+                            Source = "App",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 367,
+                            ProductionId = 4,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
                             Id = 368,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 369,
                             ProductionId = 4,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
@@ -2923,28 +2930,28 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 371,
                             ProductionId = 4,
                             Source = "App",
-                            Stars = 4
+                            Stars = 3
                         },
                         new
                         {
                             Id = 372,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 373,
                             ProductionId = 4,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 1
                         },
                         new
                         {
                             Id = 374,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
@@ -2957,140 +2964,140 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 376,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 377,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 378,
                             ProductionId = 4,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 379,
                             ProductionId = 4,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 380,
                             ProductionId = 4,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 381,
                             ProductionId = 4,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 5
                         },
                         new
                         {
                             Id = 382,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 383,
                             ProductionId = 4,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 384,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 385,
                             ProductionId = 4,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 386,
                             ProductionId = 4,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
                             Id = 387,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 388,
                             ProductionId = 4,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 389,
-                            ProductionId = 4,
-                            Source = "App",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 390,
-                            ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 391,
-                            ProductionId = 4,
-                            Source = "App",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 392,
                             ProductionId = 4,
                             Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
+                            Id = 390,
+                            ProductionId = 4,
+                            Source = "Magazine",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 391,
+                            ProductionId = 4,
+                            Source = "Internet",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 392,
+                            ProductionId = 4,
+                            Source = "Magazine",
+                            Stars = 1
+                        },
+                        new
+                        {
                             Id = 393,
                             ProductionId = 4,
                             Source = "App",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 394,
                             ProductionId = 4,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 395,
                             ProductionId = 4,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
@@ -3098,49 +3105,49 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 396,
                             ProductionId = 4,
                             Source = "Magazine",
-                            Stars = 5
+                            Stars = 1
                         },
                         new
                         {
                             Id = 397,
                             ProductionId = 4,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 398,
                             ProductionId = 4,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 399,
                             ProductionId = 4,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 401,
                             ProductionId = 5,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 1
                         },
                         new
                         {
                             Id = 402,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 403,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
@@ -3153,43 +3160,43 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 405,
                             ProductionId = 5,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 406,
                             ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 407,
                             ProductionId = 5,
                             Source = "App",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
                             Id = 408,
                             ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 409,
                             ProductionId = 5,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 2
                         },
                         new
                         {
                             Id = 410,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
@@ -3202,105 +3209,105 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 412,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 413,
                             ProductionId = 5,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 414,
                             ProductionId = 5,
                             Source = "App",
-                            Stars = 5
+                            Stars = 3
                         },
                         new
                         {
                             Id = 415,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 416,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 417,
                             ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 418,
                             ProductionId = 5,
                             Source = "Internet",
-                            Stars = 2
+                            Stars = 1
                         },
                         new
                         {
                             Id = 419,
                             ProductionId = 5,
                             Source = "Internet",
-                            Stars = 2
+                            Stars = 1
                         },
                         new
                         {
                             Id = 420,
                             ProductionId = 5,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 421,
                             ProductionId = 5,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 422,
                             ProductionId = 5,
                             Source = "Newspaper",
-                            Stars = 4
+                            Stars = 3
                         },
                         new
                         {
                             Id = 423,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 424,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 425,
                             ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 426,
                             ProductionId = 5,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 1
                         },
                         new
@@ -3308,62 +3315,62 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 427,
                             ProductionId = 5,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 1
                         },
                         new
                         {
                             Id = 428,
                             ProductionId = 5,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 2
                         },
                         new
                         {
                             Id = 429,
                             ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 430,
-                            ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 431,
-                            ProductionId = 5,
-                            Source = "App",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 432,
-                            ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 433,
                             ProductionId = 5,
                             Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
-                            Id = 434,
+                            Id = 431,
+                            ProductionId = 5,
+                            Source = "App",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 432,
+                            ProductionId = 5,
+                            Source = "App",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 433,
                             ProductionId = 5,
                             Source = "Magazine",
-                            Stars = 5
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 434,
+                            ProductionId = 5,
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 435,
                             ProductionId = 5,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
@@ -3371,105 +3378,105 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 436,
                             ProductionId = 5,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 437,
                             ProductionId = 5,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
                             Id = 438,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 439,
                             ProductionId = 5,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 440,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 441,
                             ProductionId = 5,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 2
                         },
                         new
                         {
                             Id = 442,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 443,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 444,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 445,
+                            ProductionId = 5,
+                            Source = "App",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 446,
+                            ProductionId = 5,
+                            Source = "Newspaper",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 447,
+                            ProductionId = 5,
+                            Source = "Magazine",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 448,
+                            ProductionId = 5,
+                            Source = "App",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 449,
                             ProductionId = 5,
                             Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 446,
-                            ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 447,
-                            ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 448,
-                            ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 449,
-                            ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 1
-                        },
-                        new
-                        {
                             Id = 450,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
@@ -3482,57 +3489,57 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 452,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 453,
                             ProductionId = 5,
                             Source = "App",
-                            Stars = 2
+                            Stars = 4
                         },
                         new
                         {
                             Id = 454,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 455,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 456,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 457,
                             ProductionId = 5,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 2
                         },
                         new
                         {
                             Id = 458,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 459,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
@@ -3546,7 +3553,7 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 461,
                             ProductionId = 5,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
@@ -3559,56 +3566,56 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 463,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 464,
                             ProductionId = 5,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 465,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 466,
                             ProductionId = 5,
                             Source = "Magazine",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
                             Id = 467,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 468,
                             ProductionId = 5,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 1
                         },
                         new
                         {
                             Id = 469,
                             ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 470,
                             ProductionId = 5,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
@@ -3616,63 +3623,63 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 471,
                             ProductionId = 5,
                             Source = "App",
-                            Stars = 5
+                            Stars = 3
                         },
                         new
                         {
                             Id = 472,
-                            ProductionId = 5,
-                            Source = "App",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 473,
-                            ProductionId = 5,
-                            Source = "Magazine",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 474,
-                            ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 475,
-                            ProductionId = 5,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 476,
-                            ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 477,
                             ProductionId = 5,
                             Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 478,
+                            Id = 473,
+                            ProductionId = 5,
+                            Source = "Newspaper",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 474,
+                            ProductionId = 5,
+                            Source = "App",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 475,
+                            ProductionId = 5,
+                            Source = "App",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 476,
+                            ProductionId = 5,
+                            Source = "Newspaper",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 477,
                             ProductionId = 5,
                             Source = "Internet",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 478,
+                            ProductionId = 5,
+                            Source = "Newspaper",
                             Stars = 2
                         },
                         new
                         {
                             Id = 479,
                             ProductionId = 5,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
@@ -3685,21 +3692,21 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 481,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 482,
                             ProductionId = 5,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 483,
                             ProductionId = 5,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
@@ -3713,8 +3720,8 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 485,
                             ProductionId = 5,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
@@ -3727,308 +3734,308 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 487,
                             ProductionId = 5,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 1
                         },
                         new
                         {
                             Id = 488,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 489,
                             ProductionId = 5,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 5
                         },
                         new
                         {
                             Id = 490,
                             ProductionId = 5,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 491,
                             ProductionId = 5,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 492,
                             ProductionId = 5,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 5
                         },
                         new
                         {
                             Id = 493,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 494,
                             ProductionId = 5,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
                             Id = 495,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 496,
                             ProductionId = 5,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 497,
                             ProductionId = 5,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 498,
                             ProductionId = 5,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 499,
                             ProductionId = 5,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
                             Id = 501,
                             ProductionId = 6,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 4
                         },
                         new
                         {
                             Id = 502,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 503,
-                            ProductionId = 6,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 2
                         },
                         new
                         {
-                            Id = 504,
+                            Id = 503,
                             ProductionId = 6,
                             Source = "App",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 505,
+                            Id = 504,
                             ProductionId = 6,
                             Source = "Magazine",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 505,
+                            ProductionId = 6,
+                            Source = "App",
                             Stars = 1
                         },
                         new
                         {
                             Id = 506,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 507,
-                            ProductionId = 6,
-                            Source = "App",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 508,
-                            ProductionId = 6,
                             Source = "Internet",
                             Stars = 2
                         },
                         new
                         {
-                            Id = 509,
+                            Id = 507,
+                            ProductionId = 6,
+                            Source = "Magazine",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 508,
                             ProductionId = 6,
                             Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
+                            Id = 509,
+                            ProductionId = 6,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
                             Id = 510,
                             ProductionId = 6,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 2
                         },
                         new
                         {
                             Id = 511,
                             ProductionId = 6,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 5
                         },
                         new
                         {
                             Id = 512,
                             ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 513,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 514,
                             ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 515,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 516,
                             ProductionId = 6,
                             Source = "Magazine",
-                            Stars = 5
+                            Stars = 2
                         },
                         new
                         {
                             Id = 517,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 518,
                             ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 519,
                             ProductionId = 6,
                             Source = "Magazine",
-                            Stars = 5
+                            Stars = 1
                         },
                         new
                         {
                             Id = 520,
                             ProductionId = 6,
                             Source = "App",
-                            Stars = 4
+                            Stars = 2
                         },
                         new
                         {
                             Id = 521,
+                            ProductionId = 6,
+                            Source = "Internet",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 522,
                             ProductionId = 6,
                             Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 522,
-                            ProductionId = 6,
-                            Source = "App",
-                            Stars = 4
-                        },
-                        new
-                        {
                             Id = 523,
                             ProductionId = 6,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 5
                         },
                         new
                         {
                             Id = 524,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 525,
                             ProductionId = 6,
                             Source = "Newspaper",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 526,
-                            ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 527,
-                            ProductionId = 6,
-                            Source = "Internet",
                             Stars = 3
                         },
                         new
                         {
-                            Id = 528,
-                            ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 529,
-                            ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 530,
+                            Id = 526,
                             ProductionId = 6,
                             Source = "App",
                             Stars = 5
                         },
                         new
                         {
-                            Id = 531,
+                            Id = 527,
+                            ProductionId = 6,
+                            Source = "Newspaper",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 528,
                             ProductionId = 6,
                             Source = "App",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 529,
+                            ProductionId = 6,
+                            Source = "Newspaper",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 530,
+                            ProductionId = 6,
+                            Source = "Internet",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 531,
+                            ProductionId = 6,
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
@@ -4036,7 +4043,7 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 532,
                             ProductionId = 6,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
@@ -4049,21 +4056,21 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 534,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 535,
                             ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 536,
                             ProductionId = 6,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 2
                         },
                         new
@@ -4071,48 +4078,48 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 537,
                             ProductionId = 6,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 538,
                             ProductionId = 6,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 2
                         },
                         new
                         {
                             Id = 539,
                             ProductionId = 6,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
                             Id = 540,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 541,
+                            ProductionId = 6,
+                            Source = "Internet",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 542,
                             ProductionId = 6,
                             Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
-                            Id = 542,
-                            ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 1
-                        },
-                        new
-                        {
                             Id = 543,
                             ProductionId = 6,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
@@ -4127,119 +4134,119 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 545,
                             ProductionId = 6,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 546,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 547,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 548,
                             ProductionId = 6,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 549,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 550,
                             ProductionId = 6,
                             Source = "Newspaper",
-                            Stars = 2
+                            Stars = 5
                         },
                         new
                         {
                             Id = 551,
                             ProductionId = 6,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 2
                         },
                         new
                         {
                             Id = 552,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 553,
                             ProductionId = 6,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 1
                         },
                         new
                         {
                             Id = 554,
                             ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 555,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 556,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 557,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 558,
                             ProductionId = 6,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
                             Id = 559,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 560,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 561,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
@@ -4252,64 +4259,64 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 563,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 564,
                             ProductionId = 6,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 5
                         },
                         new
                         {
                             Id = 565,
                             ProductionId = 6,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 1
                         },
                         new
                         {
                             Id = 566,
                             ProductionId = 6,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
                             Id = 567,
                             ProductionId = 6,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 568,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 569,
                             ProductionId = 6,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 570,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 571,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
@@ -4322,147 +4329,147 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 573,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 574,
                             ProductionId = 6,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 1
                         },
                         new
                         {
                             Id = 575,
                             ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 576,
                             ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 577,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 578,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 579,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 580,
                             ProductionId = 6,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
                             Id = 581,
                             ProductionId = 6,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 582,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 583,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 584,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 585,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 586,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 587,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 588,
                             ProductionId = 6,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
                         {
                             Id = 589,
                             ProductionId = 6,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 590,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 591,
                             ProductionId = 6,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 592,
                             ProductionId = 6,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 593,
                             ProductionId = 6,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
@@ -4470,21 +4477,21 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 594,
                             ProductionId = 6,
                             Source = "App",
-                            Stars = 2
+                            Stars = 5
                         },
                         new
                         {
                             Id = 595,
                             ProductionId = 6,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 1
                         },
                         new
                         {
                             Id = 596,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
@@ -4504,190 +4511,190 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 599,
                             ProductionId = 6,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 601,
                             ProductionId = 7,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 1
                         },
                         new
                         {
                             Id = 602,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 603,
-                            ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 604,
-                            ProductionId = 7,
                             Source = "App",
                             Stars = 5
                         },
                         new
                         {
+                            Id = 603,
+                            ProductionId = 7,
+                            Source = "Magazine",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 604,
+                            ProductionId = 7,
+                            Source = "Internet",
+                            Stars = 1
+                        },
+                        new
+                        {
                             Id = 605,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 606,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 607,
                             ProductionId = 7,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 608,
                             ProductionId = 7,
                             Source = "App",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 609,
                             ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 610,
                             ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 611,
+                            ProductionId = 7,
+                            Source = "App",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 612,
                             ProductionId = 7,
                             Source = "Newspaper",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 612,
-                            ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 5
-                        },
-                        new
-                        {
                             Id = 613,
                             ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 614,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 615,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 616,
                             ProductionId = 7,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 2
                         },
                         new
                         {
                             Id = 617,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 618,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 619,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 620,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 621,
                             ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 622,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 623,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 624,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 625,
                             ProductionId = 7,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 5
                         },
                         new
                         {
                             Id = 626,
                             ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
@@ -4700,35 +4707,35 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 628,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 629,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 630,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 631,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 632,
                             ProductionId = 7,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
@@ -4736,301 +4743,301 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 633,
                             ProductionId = 7,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 3
                         },
                         new
                         {
                             Id = 634,
                             ProductionId = 7,
                             Source = "Magazine",
-                            Stars = 4
+                            Stars = 5
                         },
                         new
                         {
                             Id = 635,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 636,
                             ProductionId = 7,
                             Source = "App",
-                            Stars = 5
+                            Stars = 1
                         },
                         new
                         {
                             Id = 637,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 638,
                             ProductionId = 7,
                             Source = "Internet",
-                            Stars = 2
+                            Stars = 3
                         },
                         new
                         {
                             Id = 639,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 640,
                             ProductionId = 7,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 2
                         },
                         new
                         {
                             Id = 641,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 642,
                             ProductionId = 7,
                             Source = "App",
-                            Stars = 5
+                            Stars = 1
                         },
                         new
                         {
                             Id = 643,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 644,
                             ProductionId = 7,
                             Source = "App",
-                            Stars = 1
+                            Stars = 2
                         },
                         new
                         {
                             Id = 645,
                             ProductionId = 7,
                             Source = "Internet",
-                            Stars = 2
+                            Stars = 1
                         },
                         new
                         {
                             Id = 646,
                             ProductionId = 7,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 1
                         },
                         new
                         {
                             Id = 647,
                             ProductionId = 7,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
                             Id = 648,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 649,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 650,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 651,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 652,
                             ProductionId = 7,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 2
                         },
                         new
                         {
                             Id = 653,
                             ProductionId = 7,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
                         {
                             Id = 654,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 655,
                             ProductionId = 7,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 656,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 657,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 658,
-                            ProductionId = 7,
-                            Source = "App",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 659,
-                            ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 660,
-                            ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 661,
-                            ProductionId = 7,
-                            Source = "App",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 662,
-                            ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 663,
-                            ProductionId = 7,
-                            Source = "App",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 664,
-                            ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 665,
-                            ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 666,
                             ProductionId = 7,
                             Source = "Internet",
                             Stars = 2
                         },
                         new
                         {
-                            Id = 667,
-                            ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 668,
-                            ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 669,
-                            ProductionId = 7,
-                            Source = "App",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 670,
+                            Id = 659,
                             ProductionId = 7,
                             Source = "Internet",
                             Stars = 5
                         },
                         new
                         {
-                            Id = 671,
+                            Id = 660,
+                            ProductionId = 7,
+                            Source = "Magazine",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 661,
+                            ProductionId = 7,
+                            Source = "Internet",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 662,
+                            ProductionId = 7,
+                            Source = "Magazine",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 663,
+                            ProductionId = 7,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 664,
+                            ProductionId = 7,
+                            Source = "Magazine",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 665,
+                            ProductionId = 7,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 666,
                             ProductionId = 7,
                             Source = "App",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 667,
+                            ProductionId = 7,
+                            Source = "Magazine",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 672,
+                            Id = 668,
+                            ProductionId = 7,
+                            Source = "Internet",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 669,
+                            ProductionId = 7,
+                            Source = "App",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 670,
+                            ProductionId = 7,
+                            Source = "Newspaper",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 671,
                             ProductionId = 7,
                             Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
+                            Id = 672,
+                            ProductionId = 7,
+                            Source = "App",
+                            Stars = 5
+                        },
+                        new
+                        {
                             Id = 673,
                             ProductionId = 7,
                             Source = "App",
-                            Stars = 3
+                            Stars = 1
                         },
                         new
                         {
                             Id = 674,
                             ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 675,
                             ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
@@ -5043,85 +5050,85 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 677,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 678,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 679,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 680,
                             ProductionId = 7,
                             Source = "App",
-                            Stars = 4
+                            Stars = 5
                         },
                         new
                         {
                             Id = 681,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 682,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 683,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 684,
                             ProductionId = 7,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 2
                         },
                         new
                         {
                             Id = 685,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 686,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 687,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 688,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
@@ -5134,78 +5141,78 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 690,
                             ProductionId = 7,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 691,
                             ProductionId = 7,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 692,
                             ProductionId = 7,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 2
                         },
                         new
                         {
                             Id = 693,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 694,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 695,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 696,
                             ProductionId = 7,
                             Source = "Newspaper",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 697,
                             ProductionId = 7,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 698,
                             ProductionId = 7,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 699,
                             ProductionId = 7,
                             Source = "App",
-                            Stars = 4
+                            Stars = 5
                         },
                         new
                         {
                             Id = 701,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
@@ -5218,120 +5225,120 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 703,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 704,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 705,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 706,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 707,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 708,
                             ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 709,
                             ProductionId = 8,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 1
                         },
                         new
                         {
                             Id = 710,
                             ProductionId = 8,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 2
                         },
                         new
                         {
                             Id = 711,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 712,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 713,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 714,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 715,
-                            ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 716,
                             ProductionId = 8,
                             Source = "App",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 717,
-                            ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 718,
+                            Id = 716,
                             ProductionId = 8,
                             Source = "Internet",
                             Stars = 3
                         },
                         new
                         {
+                            Id = 717,
+                            ProductionId = 8,
+                            Source = "Newspaper",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 718,
+                            ProductionId = 8,
+                            Source = "Magazine",
+                            Stars = 5
+                        },
+                        new
+                        {
                             Id = 719,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
@@ -5344,210 +5351,210 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 721,
                             ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 722,
                             ProductionId = 8,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
                             Id = 723,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 724,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 725,
                             ProductionId = 8,
                             Source = "App",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 726,
                             ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 727,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 728,
                             ProductionId = 8,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 729,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 730,
                             ProductionId = 8,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 731,
                             ProductionId = 8,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 5
                         },
                         new
                         {
                             Id = 732,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 733,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 734,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 735,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 736,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 737,
                             ProductionId = 8,
                             Source = "App",
-                            Stars = 2
+                            Stars = 5
                         },
                         new
                         {
                             Id = 738,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 739,
-                            ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 740,
                             ProductionId = 8,
                             Source = "Newspaper",
                             Stars = 2
                         },
                         new
                         {
+                            Id = 740,
+                            ProductionId = 8,
+                            Source = "App",
+                            Stars = 3
+                        },
+                        new
+                        {
                             Id = 741,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 742,
                             ProductionId = 8,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
                             Id = 743,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 744,
                             ProductionId = 8,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
                             Id = 745,
                             ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 746,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 747,
                             ProductionId = 8,
                             Source = "App",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 748,
                             ProductionId = 8,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 3
                         },
                         new
                         {
                             Id = 749,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 750,
                             ProductionId = 8,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
@@ -5555,238 +5562,238 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 751,
                             ProductionId = 8,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 752,
-                            ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 753,
                             ProductionId = 8,
                             Source = "App",
                             Stars = 3
                         },
                         new
                         {
+                            Id = 753,
+                            ProductionId = 8,
+                            Source = "Magazine",
+                            Stars = 5
+                        },
+                        new
+                        {
                             Id = 754,
                             ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 755,
                             ProductionId = 8,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 3
                         },
                         new
                         {
                             Id = 756,
                             ProductionId = 8,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 757,
                             ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 758,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 759,
                             ProductionId = 8,
                             Source = "App",
-                            Stars = 4
+                            Stars = 3
                         },
                         new
                         {
                             Id = 760,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 761,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 762,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 763,
                             ProductionId = 8,
                             Source = "Internet",
-                            Stars = 2
+                            Stars = 3
                         },
                         new
                         {
                             Id = 764,
                             ProductionId = 8,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 3
                         },
                         new
                         {
                             Id = 765,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 766,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 767,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 768,
                             ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 769,
                             ProductionId = 8,
                             Source = "App",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 770,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 771,
                             ProductionId = 8,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 5
                         },
                         new
                         {
                             Id = 772,
                             ProductionId = 8,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
                             Id = 773,
                             ProductionId = 8,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
                         {
                             Id = 774,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 775,
                             ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 776,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 777,
                             ProductionId = 8,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
                             Id = 778,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 779,
                             ProductionId = 8,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 1
                         },
                         new
                         {
                             Id = 780,
                             ProductionId = 8,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 2
                         },
                         new
                         {
                             Id = 781,
                             ProductionId = 8,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 782,
                             ProductionId = 8,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 1
                         },
                         new
                         {
                             Id = 783,
                             ProductionId = 8,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 5
                         },
                         new
                         {
                             Id = 784,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
@@ -5800,28 +5807,28 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 786,
                             ProductionId = 8,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 5
                         },
                         new
                         {
                             Id = 787,
                             ProductionId = 8,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 3
                         },
                         new
                         {
                             Id = 788,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 789,
                             ProductionId = 8,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
@@ -5835,34 +5842,34 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 791,
                             ProductionId = 8,
                             Source = "Magazine",
-                            Stars = 2
+                            Stars = 5
                         },
                         new
                         {
                             Id = 792,
                             ProductionId = 8,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 793,
                             ProductionId = 8,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 794,
                             ProductionId = 8,
                             Source = "Newspaper",
-                            Stars = 2
+                            Stars = 4
                         },
                         new
                         {
                             Id = 795,
                             ProductionId = 8,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
@@ -5870,77 +5877,77 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 796,
                             ProductionId = 8,
                             Source = "App",
-                            Stars = 3
+                            Stars = 1
                         },
                         new
                         {
                             Id = 797,
                             ProductionId = 8,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 798,
-                            ProductionId = 8,
-                            Source = "Magazine",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 799,
                             ProductionId = 8,
                             Source = "Newspaper",
                             Stars = 5
                         },
                         new
                         {
+                            Id = 799,
+                            ProductionId = 8,
+                            Source = "Magazine",
+                            Stars = 4
+                        },
+                        new
+                        {
                             Id = 801,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 802,
                             ProductionId = 9,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 803,
-                            ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 804,
                             ProductionId = 9,
                             Source = "Internet",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 805,
-                            ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 806,
+                            Id = 804,
                             ProductionId = 9,
                             Source = "Magazine",
                             Stars = 5
                         },
                         new
                         {
+                            Id = 805,
+                            ProductionId = 9,
+                            Source = "Newspaper",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 806,
+                            ProductionId = 9,
+                            Source = "App",
+                            Stars = 1
+                        },
+                        new
+                        {
                             Id = 807,
                             ProductionId = 9,
                             Source = "Magazine",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
@@ -5954,42 +5961,42 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 809,
                             ProductionId = 9,
                             Source = "Magazine",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 810,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 811,
                             ProductionId = 9,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 812,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 813,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 814,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
@@ -6002,99 +6009,99 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 816,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 817,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 818,
                             ProductionId = 9,
                             Source = "Magazine",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 819,
                             ProductionId = 9,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 3
                         },
                         new
                         {
                             Id = 820,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 821,
                             ProductionId = 9,
-                            Source = "Magazine",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
                             Id = 822,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 823,
+                            ProductionId = 9,
+                            Source = "App",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 824,
                             ProductionId = 9,
                             Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
-                            Id = 824,
-                            ProductionId = 9,
-                            Source = "App",
-                            Stars = 5
-                        },
-                        new
-                        {
                             Id = 825,
                             ProductionId = 9,
-                            Source = "Newspaper",
+                            Source = "Magazine",
                             Stars = 4
                         },
                         new
                         {
                             Id = 826,
                             ProductionId = 9,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 827,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 828,
                             ProductionId = 9,
                             Source = "App",
-                            Stars = 4
+                            Stars = 2
                         },
                         new
                         {
                             Id = 829,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
@@ -6107,64 +6114,64 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 831,
                             ProductionId = 9,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 2
                         },
                         new
                         {
                             Id = 832,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 833,
                             ProductionId = 9,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
                         {
                             Id = 834,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 835,
                             ProductionId = 9,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 3
                         },
                         new
                         {
                             Id = 836,
                             ProductionId = 9,
                             Source = "Magazine",
-                            Stars = 1
+                            Stars = 3
                         },
                         new
                         {
                             Id = 837,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 838,
                             ProductionId = 9,
                             Source = "App",
-                            Stars = 2
+                            Stars = 4
                         },
                         new
                         {
                             Id = 839,
                             ProductionId = 9,
                             Source = "Magazine",
-                            Stars = 1
+                            Stars = 2
                         },
                         new
                         {
@@ -6178,62 +6185,62 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 841,
                             ProductionId = 9,
                             Source = "Newspaper",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 842,
                             ProductionId = 9,
                             Source = "Magazine",
-                            Stars = 5
+                            Stars = 2
                         },
                         new
                         {
                             Id = 843,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 844,
-                            ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 5
-                        },
-                        new
-                        {
-                            Id = 845,
                             ProductionId = 9,
                             Source = "App",
                             Stars = 4
                         },
                         new
                         {
+                            Id = 845,
+                            ProductionId = 9,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
                             Id = 846,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 847,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 848,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 849,
                             ProductionId = 9,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 3
                         },
                         new
@@ -6241,42 +6248,42 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 850,
                             ProductionId = 9,
                             Source = "App",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 851,
                             ProductionId = 9,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 1
                         },
                         new
                         {
                             Id = 852,
                             ProductionId = 9,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
                         {
                             Id = 853,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 854,
                             ProductionId = 9,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 855,
                             ProductionId = 9,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
@@ -6289,29 +6296,29 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 857,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 858,
                             ProductionId = 9,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 2
                         },
                         new
                         {
                             Id = 859,
                             ProductionId = 9,
-                            Source = "Newspaper",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
                             Id = 860,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
@@ -6324,14 +6331,14 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 862,
                             ProductionId = 9,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 863,
                             ProductionId = 9,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
@@ -6345,337 +6352,337 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 865,
                             ProductionId = 9,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 1
                         },
                         new
                         {
                             Id = 866,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 867,
                             ProductionId = 9,
                             Source = "Internet",
-                            Stars = 5
+                            Stars = 4
                         },
                         new
                         {
                             Id = 868,
                             ProductionId = 9,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 3
                         },
                         new
                         {
                             Id = 869,
+                            ProductionId = 9,
+                            Source = "App",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 870,
                             ProductionId = 9,
                             Source = "Magazine",
                             Stars = 3
                         },
                         new
                         {
-                            Id = 870,
-                            ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 2
-                        },
-                        new
-                        {
                             Id = 871,
                             ProductionId = 9,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 872,
                             ProductionId = 9,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 873,
                             ProductionId = 9,
                             Source = "App",
-                            Stars = 2
+                            Stars = 3
                         },
                         new
                         {
                             Id = 874,
+                            ProductionId = 9,
+                            Source = "Magazine",
+                            Stars = 5
+                        },
+                        new
+                        {
+                            Id = 875,
+                            ProductionId = 9,
+                            Source = "App",
+                            Stars = 2
+                        },
+                        new
+                        {
+                            Id = 876,
+                            ProductionId = 9,
+                            Source = "Magazine",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 877,
                             ProductionId = 9,
                             Source = "App",
                             Stars = 1
                         },
                         new
                         {
-                            Id = 875,
-                            ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 876,
-                            ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 877,
-                            ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 4
-                        },
-                        new
-                        {
                             Id = 878,
                             ProductionId = 9,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 3
                         },
                         new
                         {
                             Id = 879,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 880,
                             ProductionId = 9,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 881,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 882,
                             ProductionId = 9,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 5
                         },
                         new
                         {
                             Id = 883,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 884,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 885,
                             ProductionId = 9,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 886,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 887,
                             ProductionId = 9,
                             Source = "Newspaper",
-                            Stars = 2
+                            Stars = 3
                         },
                         new
                         {
                             Id = 888,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 889,
                             ProductionId = 9,
-                            Source = "App",
+                            Source = "Magazine",
                             Stars = 4
                         },
                         new
                         {
                             Id = 890,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 891,
                             ProductionId = 9,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 3
                         },
                         new
                         {
                             Id = 892,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 893,
                             ProductionId = 9,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 4
                         },
                         new
                         {
                             Id = 894,
                             ProductionId = 9,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 895,
                             ProductionId = 9,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 4
                         },
                         new
                         {
                             Id = 896,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 897,
                             ProductionId = 9,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 898,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 899,
                             ProductionId = 9,
-                            Source = "Internet",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 901,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 902,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 903,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 904,
                             ProductionId = 10,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 1
                         },
                         new
                         {
                             Id = 905,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 906,
-                            ProductionId = 10,
-                            Source = "App",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 907,
                             ProductionId = 10,
                             Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
+                            Id = 907,
+                            ProductionId = 10,
+                            Source = "Newspaper",
+                            Stars = 3
+                        },
+                        new
+                        {
                             Id = 908,
                             ProductionId = 10,
                             Source = "App",
-                            Stars = 2
+                            Stars = 4
                         },
                         new
                         {
                             Id = 909,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 910,
                             ProductionId = 10,
-                            Source = "Internet",
+                            Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
                             Id = 911,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 912,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 913,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
@@ -6688,7 +6695,7 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 915,
                             ProductionId = 10,
-                            Source = "App",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
@@ -6696,364 +6703,364 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 916,
                             ProductionId = 10,
                             Source = "Magazine",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 917,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 918,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 919,
                             ProductionId = 10,
                             Source = "Magazine",
-                            Stars = 1
+                            Stars = 2
                         },
                         new
                         {
                             Id = 920,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 921,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 922,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 923,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 924,
                             ProductionId = 10,
                             Source = "App",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 925,
                             ProductionId = 10,
-                            Source = "Newspaper",
+                            Source = "App",
                             Stars = 2
                         },
                         new
                         {
                             Id = 926,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 927,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 928,
                             ProductionId = 10,
-                            Source = "Magazine",
+                            Source = "App",
                             Stars = 4
                         },
                         new
                         {
                             Id = 929,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 930,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 931,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 932,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 933,
                             ProductionId = 10,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 4
                         },
                         new
                         {
                             Id = 934,
                             ProductionId = 10,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 3
                         },
                         new
                         {
                             Id = 935,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 936,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 937,
                             ProductionId = 10,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 5
                         },
                         new
                         {
                             Id = 938,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 939,
                             ProductionId = 10,
-                            Source = "Internet",
+                            Source = "Newspaper",
                             Stars = 2
                         },
                         new
                         {
                             Id = 940,
                             ProductionId = 10,
-                            Source = "App",
+                            Source = "Internet",
                             Stars = 4
                         },
                         new
                         {
                             Id = 941,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 942,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 943,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 944,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 945,
                             ProductionId = 10,
                             Source = "App",
-                            Stars = 1
+                            Stars = 2
                         },
                         new
                         {
                             Id = 946,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 947,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 948,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 949,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 950,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 951,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 952,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 953,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 954,
                             ProductionId = 10,
                             Source = "Internet",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 955,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 3
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 956,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 957,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 958,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 959,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 3
+                            Source = "Newspaper",
+                            Stars = 4
                         },
                         new
                         {
                             Id = 960,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 4
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 961,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 962,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 2
+                            Source = "App",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 963,
                             ProductionId = 10,
                             Source = "App",
-                            Stars = 3
+                            Stars = 2
                         },
                         new
                         {
                             Id = 964,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 5
+                            Source = "Newspaper",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 965,
                             ProductionId = 10,
-                            Source = "Internet",
+                            Source = "App",
                             Stars = 4
                         },
                         new
                         {
                             Id = 966,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 967,
                             ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 3
                         },
                         new
                         {
@@ -7066,57 +7073,57 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 969,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 1
+                            Source = "Internet",
+                            Stars = 3
                         },
                         new
                         {
                             Id = 970,
                             ProductionId = 10,
                             Source = "App",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
                             Id = 971,
                             ProductionId = 10,
                             Source = "App",
-                            Stars = 5
+                            Stars = 2
                         },
                         new
                         {
                             Id = 972,
                             ProductionId = 10,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 4
                         },
                         new
                         {
                             Id = 973,
-                            ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 3
-                        },
-                        new
-                        {
-                            Id = 974,
                             ProductionId = 10,
                             Source = "Magazine",
                             Stars = 2
                         },
                         new
                         {
+                            Id = 974,
+                            ProductionId = 10,
+                            Source = "Newspaper",
+                            Stars = 3
+                        },
+                        new
+                        {
                             Id = 975,
                             ProductionId = 10,
                             Source = "App",
-                            Stars = 5
+                            Stars = 3
                         },
                         new
                         {
                             Id = 976,
                             ProductionId = 10,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 5
                         },
                         new
                         {
@@ -7130,28 +7137,28 @@ namespace ADSL20N4.AbstractProduction.Migrations
                             Id = 978,
                             ProductionId = 10,
                             Source = "Newspaper",
-                            Stars = 5
+                            Stars = 3
                         },
                         new
                         {
                             Id = 979,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 4
+                            Source = "Newspaper",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 980,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "Internet",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 981,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 1
+                            Source = "Magazine",
+                            Stars = 5
                         },
                         new
                         {
@@ -7164,119 +7171,119 @@ namespace ADSL20N4.AbstractProduction.Migrations
                         {
                             Id = 983,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 1
+                            Source = "Newspaper",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 984,
                             ProductionId = 10,
                             Source = "Newspaper",
-                            Stars = 1
+                            Stars = 3
                         },
                         new
                         {
                             Id = 985,
                             ProductionId = 10,
                             Source = "Magazine",
-                            Stars = 3
+                            Stars = 5
                         },
                         new
                         {
                             Id = 986,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Magazine",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 987,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 5
+                            Source = "Internet",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 988,
                             ProductionId = 10,
-                            Source = "App",
-                            Stars = 2
+                            Source = "Magazine",
+                            Stars = 1
                         },
                         new
                         {
                             Id = 989,
                             ProductionId = 10,
                             Source = "App",
-                            Stars = 5
+                            Stars = 3
                         },
                         new
                         {
                             Id = 990,
-                            ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 991,
-                            ProductionId = 10,
-                            Source = "Internet",
-                            Stars = 4
-                        },
-                        new
-                        {
-                            Id = 992,
-                            ProductionId = 10,
-                            Source = "App",
-                            Stars = 2
-                        },
-                        new
-                        {
-                            Id = 993,
-                            ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 1
-                        },
-                        new
-                        {
-                            Id = 994,
                             ProductionId = 10,
                             Source = "App",
                             Stars = 3
                         },
                         new
                         {
+                            Id = 991,
+                            ProductionId = 10,
+                            Source = "Internet",
+                            Stars = 3
+                        },
+                        new
+                        {
+                            Id = 992,
+                            ProductionId = 10,
+                            Source = "App",
+                            Stars = 4
+                        },
+                        new
+                        {
+                            Id = 993,
+                            ProductionId = 10,
+                            Source = "Magazine",
+                            Stars = 1
+                        },
+                        new
+                        {
+                            Id = 994,
+                            ProductionId = 10,
+                            Source = "Internet",
+                            Stars = 5
+                        },
+                        new
+                        {
                             Id = 995,
                             ProductionId = 10,
                             Source = "Internet",
-                            Stars = 1
+                            Stars = 2
                         },
                         new
                         {
                             Id = 996,
                             ProductionId = 10,
                             Source = "Internet",
-                            Stars = 4
+                            Stars = 1
                         },
                         new
                         {
                             Id = 997,
                             ProductionId = 10,
-                            Source = "Magazine",
-                            Stars = 5
+                            Source = "App",
+                            Stars = 2
                         },
                         new
                         {
                             Id = 998,
                             ProductionId = 10,
-                            Source = "Newspaper",
-                            Stars = 4
+                            Source = "App",
+                            Stars = 5
                         },
                         new
                         {
                             Id = 999,
                             ProductionId = 10,
-                            Source = "Magazine",
+                            Source = "Newspaper",
                             Stars = 3
                         });
                 });
@@ -7286,10 +7293,10 @@ namespace ADSL20N4.AbstractProduction.Migrations
                     b.HasBaseType("ADSL20N4.AbstractProduction.Entities.ProductionEntity");
 
                     b.Property<int>("DurationInMinutes")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<double>("WorldwideBoxOfficeGross")
-                        .HasColumnType("REAL");
+                        .HasColumnType("float");
 
                     b.HasDiscriminator().HasValue("MovieEntity");
 
@@ -7341,7 +7348,7 @@ namespace ADSL20N4.AbstractProduction.Migrations
                     b.HasBaseType("ADSL20N4.AbstractProduction.Entities.ProductionEntity");
 
                     b.Property<int>("NumberOfEpisodes")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("SeriesEntity");
 
